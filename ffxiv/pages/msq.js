@@ -5,7 +5,7 @@ function Msq({ data }) {
 // This gets called on every request
 export async function getServerSideProps() {
     // Fetch data from external API
-    const res = await fetch(`https://xivapi.com/character/8728612`)
+    const res = await fetch(process.env.FFXIV_API_URL + '/character/8728612')
     const data = await res.json()
 
     // Pass data to the page via props
