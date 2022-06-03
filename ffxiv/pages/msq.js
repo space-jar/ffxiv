@@ -1,21 +1,25 @@
 function Msq({ data }) {
-    //return <div><h1>{data.Character.Name}</h1><div>{JSON.stringify(data.Character)}</div></div>;
-    return <b>{JSON.stringify(data)}</b>
+    return (
+        <ul>
+            {data.Results.map(quest => <li><h2>{quest.Name}</h2><p>{JSON.stringify(quest)}</p></li>)}
+        </ul>
+    )
 }
 
 async function xxivRequest() {
     const XIVAPI = require('@xivapi/js')
-    const xiv = new XIVAPI()
+    const xiv = new XIVAPI({
+        private_key: process.env.FFXIV_API_KEY_V,
+        verbose: 1
+    })
     let res
 
     try {
         res = await xiv.search({
-            "indexes": "quest",
-            "columns": "ID,Name",
-            "page": 2,
-            "body": {}
+            page: 1,
         }, {
-            private_key: process.env.FFXIV_API_KEY_V
+            indexes: 'Quest',
+            columns: ['ID', 'Name', 'Icon', 'ClassJobCategory0.ID', 'ClassJobLevel0', 'ClassJobRequired.Abbreviation', 'GameContentLinks', 'JournalGenre.JournalCategory.JournalSection.Name', 'PlaceName.Name']
         })
     } catch (e) {
         // TODO: How should xivapi errors be logged? Customer logger module? Another package?
