@@ -1,7 +1,7 @@
 function Msq({ data }) {
     return (
         <ul>
-            {data.Results.map(quest => <li><h2>{quest.Name}</h2><p>{JSON.stringify(quest)}</p></li>)}
+            {data.Results.map(quest => <li key={quest.ID}><h2>{quest.Name}</h2><p>{JSON.stringify(quest)}</p></li>)}
         </ul>
     )
 }
